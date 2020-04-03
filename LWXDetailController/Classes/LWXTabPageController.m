@@ -25,9 +25,15 @@
    
 }
 - (void)viewDidLayoutSubviews{
-      CGSize screenSize = UIScreen.mainScreen.bounds.size;
-    [self setTabBarFrame:CGRectMake(0, 0, screenSize.width, 44)
+    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    CGFloat statusHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    if (self.navigationController.navigationBarHidden == YES) {
+        [self setTabBarFrame:CGRectMake(0, statusHeight, screenSize.width, 44)
         contentViewFrame:CGRectMake(0, 44,screenSize.width, self.view.frame.size.height-44)];
+    }else {
+        [self setTabBarFrame:CGRectMake(0, 0, screenSize.width, 44)
+            contentViewFrame:CGRectMake(0, 44,screenSize.width, self.view.frame.size.height-44)];
+    }
 }
 - (RACSignal *)contentScrollSignal{
     @weakify(self);
